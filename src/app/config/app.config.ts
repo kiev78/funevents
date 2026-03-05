@@ -1,11 +1,13 @@
 /**
  * Application Configuration
- * Add your Google Maps API key here
- * Get one from: https://console.cloud.google.com/
+ * API keys are stored in secrets.local.ts (gitignored)
+ * Copy secrets.example.ts to secrets.local.ts and add your keys
  */
 
+import { secrets } from './secrets.local';
+
 export const appConfig = {
-  googleMapsApiKey: 'AIzaSyCFdIIi9wAJ4skgR9pAQeqQU3lMrmIB3sg',
+  googleMapsApiKey: secrets.googleMapsApiKey,
   // Default distance unit: 'miles' or 'km'
   defaultDistanceUnit: 'miles' as 'miles' | 'km',
 };
