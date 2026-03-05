@@ -14,9 +14,7 @@ import { FormsModule } from '@angular/forms';
 import { EventService } from './services/event.service';
 import { Event } from './models/event.model';
 import { appConfig } from './config/app.config';
-import { EventCardComponent } from "./components/event-card.component";
-
-declare var google: any;
+import { EventCardComponent } from './components/event-card.component';
 
 @Component({
   selector: 'app-root',
@@ -65,6 +63,9 @@ export class App implements OnInit, AfterViewChecked {
   }
 
   ngOnInit(): void {
+    // Load Google Maps API dynamically
+    this.loadGoogleMapsScript();
+
     // Default start date to today
     const today = new Date();
     const yyyy = today.getFullYear();
@@ -75,6 +76,23 @@ export class App implements OnInit, AfterViewChecked {
     this.eventService.getEvents().subscribe((events) => {
       this.events.set(events);
     });
+  }
+
+  private loadGoogleMapsScript(): void {
+    if (typeof google !== 'undefined' && google.maps) {
+      return; // Already loaded
+    }
+
+    const existingScript = document.querySelector('script[src*="maps.googleapis.com"]');
+    if (existingScript) {
+      return; // Script tag already exists
+    }
+
+    const script = document.createElement('script');
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${appConfig.googleMapsApiKey}&libraries=places`;
+    script.async = true;
+    script.defer = true;
+    document.head.appendChild(script);
   }
 
   get filteredEvents(): Event[] {
@@ -333,48 +351,52 @@ export class App implements OnInit, AfterViewChecked {
     userLoc: { lat: number; lng: number },
     events: Event[],
   ): Promise<void> {
-    const destinations = events.map((event) => `${event.lat},${event.lng}`).join('|');
+    // Check if Google Maps API is loaded
+    if (typeof google === 'undefined' || !google.maps) {
+      console.warn('Google Maps API not loaded, using straight-line distances');
+      this.calculateStraightLineDistances();
+      return;
+    }
 
-    const origin = `${userLoc.lat},${userLoc.lng}`;
-    const url = `https://maps.googleapis.com/maps/api/distancematrix/json?origins=${origin}&destinations=${destinations}&key=${appConfig.googleMapsApiKey}&units=metric`;
+    const service = new google.maps.DistanceMatrixService();
+    const origins = [new google.maps.LatLng(userLoc.lat, userLoc.lng)];
+    const destinations = events.map((event) => new google.maps.LatLng(event.lat!, event.lng!));
 
     try {
-      const response = await fetch(url);
-      if (!response.ok) {
-        console.error('Google Maps API error:', response.statusText);
-        this.calculateStraightLineDistances();
-        return;
-      }
+      const response = await service.getDistanceMatrix({
+        origins,
+        destinations,
+        travelMode: google.maps.TravelMode.DRIVING,
+        unitSystem: google.maps.UnitSystem.METRIC,
+      });
 
-      const data = await response.json();
-
-      if (data.status === 'OK') {
+      if (response.rows[0]) {
         const distances: { [key: string]: number } = {};
 
-        data.rows[0].elements.forEach((element: any, index: number) => {
-          if (element.status === 'OK' && element.distance) {
-            // Convert meters to kilometers
-            distances[events[index].id] = element.distance.value / 1000;
-          } else {
-            // Fallback to straight-line distance if element fails
-            distances[events[index].id] = this.calculateDistance(
-              userLoc.lat,
-              userLoc.lng,
-              events[index].lat!,
-              events[index].lng!,
-            );
-          }
-        });
+        response.rows[0].elements.forEach(
+          (element: google.maps.DistanceMatrixResponseElement, index: number) => {
+            if (element.status === google.maps.DistanceMatrixElementStatus.OK && element.distance) {
+              // Convert meters to kilometers
+              distances[events[index].id] = element.distance.value / 1000;
+            } else {
+              // Fallback to straight-line distance if element fails
+              distances[events[index].id] = this.calculateDistance(
+                userLoc.lat,
+                userLoc.lng,
+                events[index].lat!,
+                events[index].lng!,
+              );
+            }
+          },
+        );
 
         this.drivingDistances.set(distances);
       } else {
-        console.warn('Google Maps API warning:', data.status);
+        console.warn('Google Maps API warning: No results');
         this.calculateStraightLineDistances();
       }
     } catch (error) {
       console.error('Error calling Google Maps API:', error);
-      // Note: CORS errors are expected when called directly from browser
-      // Solution: Use a backend proxy or set up CORS headers
       this.calculateStraightLineDistances();
     }
   }
