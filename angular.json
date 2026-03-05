@@ -23,6 +23,11 @@
               {
                 "glob": "**/*",
                 "input": "public"
+              },
+              {
+                "glob": "events.json",
+                "input": "src/app/data",
+                "output": "/data"
               }
             ],
             "styles": ["src/styles.css"]
