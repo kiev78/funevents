@@ -1,0 +1,197 @@
+<div class="container">
+  <header class="header">
+    <div class="header-top">
+      <button
+        class="sidebar-toggle-btn"
+        (click)="filtersSidebarOpen.set(!filtersSidebarOpen())"
+        [class.open]="filtersSidebarOpen()"
+        title="Show Filters"
+      >
+        ☰ Filters
+      </button>
+      <h1>{{ title() }}</h1>
+      <button
+        class="map-toggle-btn"
+        (click)="toggleMap()"
+        [class.active]="showMap()"
+        title="Toggle Map View"
+      >
+        🗺️
+      </button>
+    </div>
+    <p class="subtitle">Keep track of events you'd like to attend</p>
+  </header>
+
+  <div class="layout-row">
+    <aside class="filters-sidebar" [class.open]="filtersSidebarOpen()">
+      <div class="sidebar-header">
+        <span>Filters</span>
+        <button class="sidebar-close-btn" (click)="filtersSidebarOpen.set(false)">✕</button>
+      </div>
+      <div class="sidebar-content">
+        <!-- Tag Filters -->
+        <div class="filter-group">
+          <h3>Filter by Category</h3>
+          <div class="tag-filter">
+            <button
+              *ngFor="let tag of eventTags"
+              class="tag-checkbox"
+              [class.selected]="isTagSelected(tag)"
+              (click)="toggleTag(tag)"
+            >
+              <span class="checkbox"></span>
+              {{ tag }}
+            </button>
+          </div>
+          <button *ngIf="selectedTags().size > 0" class="clear-btn" (click)="clearTagFilters()">
+            Clear Tags
+          </button>
+        </div>
+        <!-- Remote Events Checkbox -->
+        <div class="filter-group">
+          <div class="remote-events-checkbox">
+            <input
+              type="checkbox"
+              id="includeRemote"
+              [checked]="includeRemoteEvents()"
+              (change)="toggleRemoteEvents()"
+            />
+            <label for="includeRemote">Include Remote Events</label>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <div class="main-content">
+      <div class="filters-section">
+        <!-- Date Range Filter -->
+        <div class="filter-group">
+          <h3>Filter by Date</h3>
+          <div class="date-filter">
+            <div class="date-input-group">
+              <label>Start Date:</label>
+              <input type="date" [(ngModel)]="startDate" class="date-input" />
+            </div>
+            <div class="date-input-group">
+              <label>End Date:</label>
+              <input type="date" [(ngModel)]="endDate" class="date-input" />
+            </div>
+          </div>
+          <button *ngIf="startDate() || endDate()" class="clear-btn" (click)="clearDateFilters()">
+            Clear Dates
+          </button>
+        </div>
+
+        <!-- Distance Filter -->
+        <div class="filter-group">
+          <h3>Filter by Distance</h3>
+          <div class="distance-filter">
+            <!-- Browser Geolocation -->
+            <div class="geolocation-button-group">
+              <button
+                class="geolocation-btn"
+                (click)="getUserLocation()"
+                [disabled]="isGettingLocation()"
+              >
+                {{ isGettingLocation() ? 'Getting Location...' : '📍 Use My Current Location' }}
+              </button>
+            </div>
+
+            <!-- Location Input with Autocomplete -->
+            <div class="location-input-group">
+              <label>Enter City, State or Use My Location:</label>
+              <div *ngIf="userLocation()" class="current-location-info">
+                ✓ Results updated — {{ filteredEvents.length }} event{{
+                  filteredEvents.length === 1 ? '' : 's'
+                }}
+                found{{ locationName() ? ' near ' + locationName() : '' }}
+              </div>
+              <div class="autocomplete-container">
+                <input
+                  type="text"
+                  placeholder="Start typing a city name..."
+                  class="location-input"
+                  [(ngModel)]="locationInput"
+                  (input)="onLocationInput(locationInput())"
+                />
+                <div
+                  *ngIf="showSuggestions() && locationSuggestions().length > 0"
+                  class="autocomplete-suggestions"
+                >
+                  <div
+                    *ngFor="let suggestion of locationSuggestions()"
+                    class="suggestion-item"
+                    (click)="selectLocationSuggestion(suggestion)"
+                  >
+                    📍 {{ suggestion }}
+                  </div>
+                </div>
+              </div>
+              <p *ngIf="locationInputError()" class="error-message">{{ locationInputError() }}</p>
+            </div>
+
+            <!-- Distance Setting -->
+            <div *ngIf="userLocation()" class="distance-setting">
+              <div class="distance-unit-toggle">
+                <button class="unit-btn" [class.active]="!useMiles()" (click)="useMiles.set(false)">
+                  km
+                </button>
+                <button class="unit-btn" [class.active]="useMiles()" (click)="useMiles.set(true)">
+                  miles
+                </button>
+              </div>
+              <label>Max Distance ({{ distanceUnit }}):</label>
+              <input
+                type="number"
+                [(ngModel)]="maxDistance"
+                min="5"
+                max="500"
+                step="5"
+                class="distance-input"
+              />
+              <span class="distance-value"
+                >{{ formatNumber(maxDistance()) }} {{ distanceUnit }}</span
+              >
+            </div>
+          </div>
+          <button *ngIf="userLocation()" class="clear-btn" (click)="clearDistanceFilter()">
+            Clear Location
+          </button>
+        </div>
+      </div>
+
+      <div class="content-area" [class.with-map]="showMap()">
+        <div class="events-list-area">
+          <main class="events-container">
+            <div *ngIf="filteredEvents.length === 0" class="no-events">
+              <p>No events found with the current filters.</p>
+            </div>
+
+            <div *ngFor="let event of filteredEvents">
+              <event-card
+                [event]="event"
+                [userLocation]="userLocation()"
+                [getEventDistance]="getEventDistance.bind(this)"
+                [isOnlineOnly]="isOnlineOnly.bind(this)"
+                [distanceUnit]="distanceUnit"
+              ></event-card>
+            </div>
+          </main>
+        </div>
+
+        <!-- Map Panel -->
+        <div *ngIf="showMap()" class="map-panel">
+          <div class="map-panel-header">
+            <span>📍 Event Map</span>
+            <button class="map-close-btn" (click)="toggleMap()">✕</button>
+          </div>
+          <div #mapContainer class="map-container"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <p>Total Events: {{ filteredEvents.length }}</p>
+  </footer>
+</div>
