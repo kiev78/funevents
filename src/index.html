@@ -9,16 +9,5 @@
   </head>
   <body>
     <app-root></app-root>
-    <script>
-      // Load Google Maps JS API dynamically from config
-      (function () {
-        const script = document.createElement('script');
-        script.src =
-          'https://maps.googleapis.com/maps/api/js?key=AIzaSyCFdIIi9wAJ4skgR9pAQeqQU3lMrmIB3sg&libraries=places';
-        script.async = true;
-        script.defer = true;
-        document.head.appendChild(script);
-      })();
-    </script>
   </body>
 </html>
