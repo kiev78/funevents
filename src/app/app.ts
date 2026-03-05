@@ -15,10 +15,12 @@ import { EventService } from './services/event.service';
 import { Event } from './models/event.model';
 import { appConfig } from './config/app.config';
 import { EventCardComponent } from './components/event-card.component';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  imports: [CommonModule, FormsModule, EventCardComponent],
+  standalone: true,
+  imports: [CommonModule, FormsModule, EventCardComponent, RouterModule],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
@@ -41,6 +43,8 @@ export class App implements OnInit, AfterViewChecked {
   protected isGettingLocation = signal<boolean>(false);
   protected drivingDistances = signal<{ [key: string]: number }>({});
   protected showMap = signal<boolean>(false);
+  protected showSavedOnly = signal<boolean>(false);
+  protected showAttendedOnly = signal<boolean>(false);
   @ViewChild('mapContainer') mapContainer!: ElementRef;
   private map: any = null;
   private mapMarkers: any[] = [];
@@ -97,6 +101,16 @@ export class App implements OnInit, AfterViewChecked {
 
   get filteredEvents(): Event[] {
     let filtered = this.events();
+
+    // Filter by saved events
+    if (this.showSavedOnly()) {
+      filtered = filtered.filter((event) => this.eventService.isEventSaved(event.id));
+    }
+
+    // Filter by attended events
+    if (this.showAttendedOnly()) {
+      filtered = filtered.filter((event) => this.eventService.isEventAttended(event.id));
+    }
 
     // Filter by multiple selected tags
     const selectedTags = this.selectedTags();
@@ -423,6 +437,34 @@ export class App implements OnInit, AfterViewChecked {
 
   toggleRemoteEvents(): void {
     this.includeRemoteEvents.set(!this.includeRemoteEvents());
+  }
+
+  toggleSavedFilter(): void {
+    this.showSavedOnly.set(!this.showSavedOnly());
+  }
+
+  handleSaveToggle(eventId: string): void {
+    this.eventService.toggleEventSaved(eventId);
+  }
+
+  handleRatingChange(data: { eventId: string; rating: number }): void {
+    this.eventService.setEventRating(data.eventId, data.rating);
+  }
+
+  isEventSaved(eventId: string): boolean {
+    return this.eventService.isEventSaved(eventId);
+  }
+
+  toggleAttendedFilter(): void {
+    this.showAttendedOnly.set(!this.showAttendedOnly());
+  }
+
+  handleAttendedToggle(eventId: string): void {
+    this.eventService.toggleEventAttended(eventId);
+  }
+
+  isEventAttended(eventId: string): boolean {
+    return this.eventService.isEventAttended(eventId);
   }
 
   clearDistanceFilter(): void {

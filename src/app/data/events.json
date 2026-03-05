@@ -1,6 +1,48 @@
 {
   "events": [
     {
+      "id": "evt003",
+      "title": "Spring Fling Charitable Wellness Event",
+      "tags": ["Wellness", "Charity", "Yoga", "Community", "Artisans"],
+      "host": "The Well Holistic & Metaphysical Collective",
+      "coHosts": ["Share2Care"],
+      "date": "2026-04-18",
+      "time": "10:00",
+      "timezone": "EST",
+      "location": "360 Woodhill Rd, Newtown, PA 18940",
+      "lat": 40.2541,
+      "lng": -74.8913,
+      "isRemote": false,
+      "eventDetails": "A beautiful Bucks County backdrop to celebrate Earth Day! Featuring wellness vendors, artisans, yoga, movement sessions (Power Pilates, Reiki House), healthy nosh, and DJ spins. Attendees are encouraged to bring clothing donations for NJRISE.",
+      "sponsors": ["NJRISE"],
+      "status": "upcoming",
+      "ticketUrl": "https://www.eventbrite.com/e/spring-fling-charitable-wellness-event-tickets-1983321839010",
+      "eventDetailUrl": "https://www.eventbrite.com/e/spring-fling-charitable-wellness-event-tickets-1983321839010",
+      "instagramUrl": "https://www.instagram.com/thewellholistic/",
+      "facebookUrl": "https://www.facebook.com/thewellholistic"
+    },
+    {
+      "id": "evt004",
+      "title": "Shrinking the Lawn with the Friends of Tyler State Park",
+      "tags": ["Educational Programs", "Environment", "Community", "Wildlife"],
+      "host": "Tyler State Park",
+      "coHosts": ["Friends of Tyler State Park"],
+      "date": "2026-03-25",
+      "time": "18:00",
+      "timezone": "EST",
+      "location": "101 Swamp Rd., Newtown, PA 18940-1151",
+      "lat": 40.2359,
+      "lng": -74.9575,
+      "isRemote": false,
+      "eventDetails": "In this program, we will focus on strategies to improve habitat and create more wildlife friendly environments in our communities. Open discussion is encouraged. Free resources and door prizes available. Pre-registration required; space limited to 35 registrants.",
+      "sponsors": ["Friends of Tyler State Park"],
+      "status": "upcoming",
+      "ticketUrl": "http://eventsreg.dcnr.pa.gov/register/create/51948644103385",
+      "eventDetailUrl": "https://events.dcnr.pa.gov/event/shrinking-the-lawn-with-the-friends-of-tyler-state-park",
+      "instagramUrl": "https://www.instagram.com/friendsoftyler/",
+      "facebookUrl": "https://www.facebook.com/friendsoftylerstatepark"
+    },
+    {
       "id": "evt001",
       "title": "Spring Seed Swap & Garden Exchange",
       "tags": ["Seed Swap/Exchange", "Community", "Garden"],
@@ -15,7 +57,9 @@
       "isRemote": false,
       "eventDetails": "Join us for a community seed swap where gardeners exchange seeds, cuttings, and gardening tips. Bring your surplus seeds and plants!",
       "sponsors": ["Urban Garden Initiative", "Local Seed Library"],
-      "status": "upcoming"
+      "status": "upcoming",
+      "ticketUrl": "https://www.eventbrite.com/e/spring-seed-swap-tickets-1234567890",
+      "eventDetailUrl": "https://www.eventbrite.com/e/spring-seed-swap-tickets-1234567890"
     },
     {
       "id": "evt002",
@@ -32,42 +76,11 @@
       "isRemote": false,
       "eventDetails": "Celebrate the full moon with ecstatic dance and movement. All levels welcome. Bring comfortable clothes and an open heart.",
       "sponsors": ["Healing Arts Collective", "Sacred Space Studios"],
-      "status": "upcoming"
-    },
-    {
-      "id": "evt003",
-      "title": "7-Day Meditation Retreat",
-      "tags": ["Meditation Retreat", "Spiritual", "Wellness"],
-      "host": "Reverend Marcus Williams",
-      "coHosts": ["Dr. Patricia Kumar", "Brother David"],
-      "date": "2026-04-10",
-      "time": "08:00",
-      "timezone": "EST",
-      "location": "Silence Mountain Retreat Center, Asheville, NC",
-      "lat": 35.5951,
-      "lng": -82.5515,
-      "isRemote": false,
-      "eventDetails": "A transformative 7-day silent meditation retreat focusing on mindfulness and inner peace. Accommodations, meals, and instruction included.",
-      "sponsors": ["Mindfulness Foundation", "Eastern Wisdom Center"],
-      "status": "upcoming"
-    },
-    {
-      "id": "evt004",
-      "title": "Sound Healing & Chakra Balancing",
-      "tags": ["Healing", "Sound Therapy", "Wellness"],
-      "host": "Sophia Stone",
-      "coHosts": ["Elena Russo"],
-      "date": "2026-03-22",
-      "time": "18:00",
-      "timezone": "EST",
-      "location": "Wellness Hub Studio, New York, NY",
-      "lat": 40.7128,
-      "lng": -74.006,
-      "isRemote": true,
-      "remoteLink": "https://zoom.us/j/healing2026",
-      "eventDetails": "Experience the transformative power of sound healing using crystal bowls, tuning forks, and mantras. Perfect for stress relief and energy alignment.",
-      "sponsors": ["Crystal Healing International"],
-      "status": "upcoming"
+      "status": "upcoming",
+      "ticketUrl": "https://www.eventbrite.com/e/full-moon-dance-tickets-1234567891",
+      "eventDetailUrl": "https://www.eventbrite.com/e/full-moon-dance-tickets-1234567891",
+      "instagramUrl": "https://www.instagram.com/fullmoondance/",
+      "facebookUrl": "https://www.facebook.com/fullmoondancecelebration"
     },
     {
       "id": "evt005",
@@ -84,7 +97,9 @@
       "isRemote": false,
       "eventDetails": "Dynamic vinyasa flow yoga class suitable for intermediate practitioners. Bring your mat and water bottle.",
       "sponsors": ["Local Yoga Studio"],
-      "status": "upcoming"
+      "status": "upcoming",
+      "ticketUrl": "https://www.eventbrite.com/e/vinyasa-yoga-tickets-1234567894",
+      "eventDetailUrl": "https://www.eventbrite.com/e/vinyasa-yoga-tickets-1234567894"
     },
     {
       "id": "evt006",
@@ -100,7 +115,9 @@
       "remoteLink": "https://zoom.us/j/healingcircle2026",
       "eventDetails": "Join our supportive healing circle for emotional release, sharing, and community support. Completely confidential and safe space.",
       "sponsors": ["Holistic Health Alliance"],
-      "status": "upcoming"
+      "status": "upcoming",
+      "ticketUrl": "https://www.eventbrite.com/e/healing-circle-tickets-1234567895",
+      "eventDetailUrl": "https://www.eventbrite.com/e/healing-circle-tickets-1234567895"
     },
     {
       "id": "evt007",
@@ -117,7 +134,9 @@
       "isRemote": false,
       "eventDetails": "Learn how movement and dance can be therapeutic. This workshop combines dance with psychology for emotional wellness.",
       "sponsors": ["American Dance Therapy Association"],
-      "status": "upcoming"
+      "status": "upcoming",
+      "ticketUrl": "https://www.eventbrite.com/e/dance-therapy-tickets-1234567896",
+      "eventDetailUrl": "https://www.eventbrite.com/e/dance-therapy-tickets-1234567896"
     },
     {
       "id": "evt008",
@@ -134,7 +153,9 @@
       "isRemote": false,
       "eventDetails": "A peaceful weekend retreat with guided meditation, mindful walking, and dharma talks. Perfect for beginners.",
       "sponsors": ["Plum Village International", "Buddhist Society"],
-      "status": "upcoming"
+      "status": "upcoming",
+      "ticketUrl": "https://www.eventbrite.com/e/meditation-getaway-tickets-1234567897",
+      "eventDetailUrl": "https://www.eventbrite.com/e/meditation-getaway-tickets-1234567897"
     },
     {
       "id": "evt009",
@@ -151,7 +172,9 @@
       "isRemote": false,
       "eventDetails": "Enjoy a scenic walk along the Delaware Canal followed by a healthy picnic. Family-friendly and open to all ages.",
       "sponsors": ["Delaware Canal Association"],
-      "status": "upcoming"
+      "status": "upcoming",
+      "ticketUrl": "https://www.eventbrite.com/e/river-walk-picnic-tickets-1234567898",
+      "eventDetailUrl": "https://www.eventbrite.com/e/river-walk-picnic-tickets-1234567898"
     },
     {
       "id": "evt010",
@@ -168,7 +191,9 @@
       "isRemote": false,
       "eventDetails": "A gentle yoga class focused on healing and relaxation. Suitable for all levels. Mats provided.",
       "sponsors": ["Newtown Wellness Collective"],
-      "status": "upcoming"
+      "status": "upcoming",
+      "ticketUrl": "https://www.eventbrite.com/e/healing-yoga-newtown-tickets-1234567899",
+      "eventDetailUrl": "https://www.eventbrite.com/e/healing-yoga-newtown-tickets-1234567899"
     },
     {
       "id": "evt011",
@@ -185,7 +210,9 @@
       "isRemote": false,
       "eventDetails": "Join us for an energetic urban dance jam in the heart of Philly. All styles and skill levels welcome.",
       "sponsors": ["Philly Dance Alliance"],
-      "status": "upcoming"
+      "status": "upcoming",
+      "ticketUrl": "https://www.eventbrite.com/e/urban-dance-jam-tickets-1234567900",
+      "eventDetailUrl": "https://www.eventbrite.com/e/urban-dance-jam-tickets-1234567900"
     },
     {
       "id": "evt012",
@@ -202,7 +229,9 @@
       "isRemote": false,
       "eventDetails": "Guided meditation walk through the pine barrens. Connect with nature and find inner peace.",
       "sponsors": ["NJ Forest Wellness"],
-      "status": "upcoming"
+      "status": "upcoming",
+      "ticketUrl": "https://www.eventbrite.com/e/forest-meditation-tickets-1234567901",
+      "eventDetailUrl": "https://www.eventbrite.com/e/forest-meditation-tickets-1234567901"
     },
     {
       "id": "evt013",
@@ -219,7 +248,9 @@
       "isRemote": false,
       "eventDetails": "Explore healing through creative arts. Open studio, group art projects, and refreshments.",
       "sponsors": ["Medford Arts Center"],
-      "status": "upcoming"
+      "status": "upcoming",
+      "ticketUrl": "https://www.eventbrite.com/e/healing-arts-meetup-tickets-1234567902",
+      "eventDetailUrl": "https://www.eventbrite.com/e/healing-arts-meetup-tickets-1234567902"
     },
     {
       "id": "evt014",
@@ -236,7 +267,9 @@
       "isRemote": false,
       "eventDetails": "Start your day with sunrise yoga on the sand. All levels welcome. Bring a towel or mat.",
       "sponsors": ["Cape May Wellness Collective"],
-      "status": "upcoming"
+      "status": "upcoming",
+      "ticketUrl": "https://www.eventbrite.com/e/beach-yoga-cape-may-tickets-1234567903",
+      "eventDetailUrl": "https://www.eventbrite.com/e/beach-yoga-cape-may-tickets-1234567903"
     }
   ]
 }

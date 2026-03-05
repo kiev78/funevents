@@ -16,4 +16,9 @@ export interface Event {
   sponsors: string[];
   status?: 'upcoming' | 'attended' | 'cancelled';
   createdAt?: string;
+  ticketUrl?: string;
+  eventDetailUrl?: string;
+  instagramUrl?: string;
+  facebookUrl?: string;
+  rating?: number; // 1-5 stars
 }

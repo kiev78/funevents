@@ -1,0 +1,72 @@
+<div class="planner-container">
+  <mat-toolbar color="primary" class="planner-toolbar">
+    <mat-icon>calendar_month</mat-icon>
+    <span class="toolbar-spacer"></span>
+    <span class="toolbar-title">Event Planner</span>
+    <span class="toolbar-spacer"></span>
+    <button mat-icon-button routerLink="/">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-toolbar>
+
+  <mat-sidenav-container class="planner-layout">
+    <mat-sidenav mode="side" opened class="sidebar">
+      <mat-card class="filter-card">
+        <mat-card-header>
+          <mat-card-title>
+            <mat-icon class="filter-icon">filter_list</mat-icon>
+            Filters
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Category</mat-label>
+            <mat-select
+              [value]="categoryFilter()"
+              (selectionChange)="categoryFilter.set($event.value)"
+            >
+              <mat-option value="All">All Events</mat-option>
+              <mat-option value="Work">Work</mat-option>
+              <mat-option value="Personal">Personal</mat-option>
+              <mat-option value="Writing">Writing</mat-option>
+            </mat-select>
+            <mat-icon matPrefix>category</mat-icon>
+          </mat-form-field>
+
+          <div class="mini-calendar-placeholder">
+            <mat-icon class="placeholder-icon">calendar_today</mat-icon>
+            <p class="placeholder-text">Mini calendar coming soon</p>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </mat-sidenav>
+
+    <mat-sidenav-content class="main-content">
+      <mat-card class="calendar-card">
+        <mat-card-header class="calendar-header">
+          <div class="view-toggle">
+            <button
+              mat-raised-button
+              [color]="viewMode() === 'week' ? 'primary' : ''"
+              (click)="viewMode.set('week')"
+            >
+              <mat-icon>view_week</mat-icon>
+              Week
+            </button>
+            <button
+              mat-raised-button
+              [color]="viewMode() === 'month' ? 'primary' : ''"
+              (click)="viewMode.set('month')"
+            >
+              <mat-icon>calendar_view_month</mat-icon>
+              Month
+            </button>
+          </div>
+        </mat-card-header>
+        <mat-card-content class="calendar-content">
+          <full-calendar [options]="calendarOptions"></full-calendar>
+        </mat-card-content>
+      </mat-card>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>
